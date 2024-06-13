@@ -1,0 +1,20 @@
+[Nemo Action]
+
+# sudo apt-get install  imagemagick
+
+Name=Convert image…
+Name[pl]=Konwertuj obraz…
+Name[uk]=Ковертувати зображення…
+Name[ru]=Конвертировать изображение…
+
+Comment=Convert image to another format
+Comment[pl]=Konwertuj obraz na inny format
+Comment[uk]=Конвертувати зображення в інший формат
+Comment[ru]=Конвертировать изображение в другой формат
+
+Exec=<convert-image@linewelder/action.py %F>
+Icon-Name=emblem-photos-symbolic
+Selection=s
+Extensions=jpeg;jpg;png;webp;heif;
+Dependencies=convert;
+
