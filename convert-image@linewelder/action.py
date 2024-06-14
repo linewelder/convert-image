@@ -100,7 +100,7 @@ class ConverterWindow(Gtk.Dialog):
         quality = self.quality_scale.get_value()
 
         os.system(f'convert -quality {quality} {FILE_PATH} {output}')
-        # self.destroy()
+        self.destroy()
 
     def move_to_mouse_pointer(self):
         pointer = Gdk.Display.get_default() \
