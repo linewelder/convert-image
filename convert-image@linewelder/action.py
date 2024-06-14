@@ -14,7 +14,7 @@ from gi.repository import Gtk, Gdk
 FORMAT_TO_EXTENSION = {
     'PNG': '.png',
     'JPEG': '.jpg',
-    'WEBP': '.webp',
+    'WebP': '.webp',
     'HEIF': '.heif'
 }
 
@@ -22,7 +22,7 @@ EXTENSION_TO_FORMAT = {
     '.jpg': 'JPEG',
     '.jpeg': 'JPEG',
     '.png': 'PNG',
-    '.webp': 'WEBP',
+    '.webp': 'WebP',
     '.heif': 'HEIF'
 }
 
