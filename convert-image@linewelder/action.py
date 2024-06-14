@@ -47,6 +47,7 @@ class ConverterWindow(Gtk.Dialog):
         form_box.set_border_width(12)
         form_box.add(self.create_format_chooser())
         form_box.add(self.create_quality_scale())
+        form_box.add(self.create_replace_check())
         self.vbox.add(form_box)
 
         self.add_button('Cancel', Gtk.ResponseType.CANCEL)
@@ -85,6 +86,12 @@ class ConverterWindow(Gtk.Dialog):
 
         return box
 
+    def create_replace_check(self):
+        self.replace_check = Gtk.CheckButton(label='Replace Original')
+        self.replace_check.set_active(True)
+        self.replace_check.set_tooltip_text('When enabled, the original file will be deleted')
+        return self.replace_check
+
     def on_response(self, dialog, response):
         if response == Gtk.ResponseType.OK:
             self.on_convert_clicked(self.convert_button)
@@ -117,6 +124,10 @@ class ConverterWindow(Gtk.Dialog):
         subprocess.run(
             ['convert', '-quality', str(quality), FILE_PATH, str(output)],
             check=True)
+
+        if self.replace_check.get_active() and output != FILE_PATH:
+            FILE_PATH.unlink()
+
         self.destroy()
 
     def move_to_mouse_pointer(self):
