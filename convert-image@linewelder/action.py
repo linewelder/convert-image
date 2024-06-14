@@ -113,7 +113,7 @@ class ConverterWindow(Gtk.Dialog):
         self.move(x - width / 2, y - height / 2)
 
 
-if __name__ == '__main__': 
+if __name__ == '__main__':
     win = ConverterWindow()
     win.connect('destroy', Gtk.main_quit)
     win.show_all()
