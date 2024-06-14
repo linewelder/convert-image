@@ -35,20 +35,24 @@ FILE_PATH = Path(sys.argv[1])
 ORIGINAL_FORMAT = EXTENSION_TO_FORMAT[FILE_PATH.suffix]
 
 
-class ConverterWindow(Gtk.Window):
+class ConverterWindow(Gtk.Dialog):
     def __init__(self):
         super().__init__(title='Convert Image')
-        self.set_border_width(12)
-        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=32)
-        self.add(box)
+        self.set_border_width(6)
+        self.set_icon_name('emblem-photos')
+        self.set_resizable(False)
+        self.set_default_size(340, 210)
 
         form_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
         form_box.set_border_width(12)
         form_box.add(self.create_format_chooser())
         form_box.add(self.create_quality_scale())
-        box.add(form_box)
+        self.vbox.add(form_box)
 
-        box.pack_end(self.create_buttons(), False, False, 0)
+        self.add_button('Cancel', Gtk.ResponseType.CANCEL)
+        self.convert_button = self.add_button('Convert', Gtk.ResponseType.OK)
+
+        self.connect('response', self.on_response)
 
         # Must be done after setting convert_button
         self.format_combo.set_active(0)
@@ -60,7 +64,6 @@ class ConverterWindow(Gtk.Window):
         box.add(Gtk.Label(label='Format:', halign=Gtk.Align.START))
 
         self.format_combo = Gtk.ComboBoxText()
-        self.format_combo.set_size_request(300, -1)
         self.format_combo.set_entry_text_column(0)
 
         for file_format in FORMAT_TO_EXTENSION.keys():
@@ -81,18 +84,11 @@ class ConverterWindow(Gtk.Window):
 
         return box
 
-    def create_buttons(self):
-        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-
-        self.convert_button = Gtk.Button(label='Convert')
-        self.convert_button.connect('clicked', self.on_convert_clicked)
-        box.pack_end(self.convert_button, False, False, 0)
-
-        cancel_button = Gtk.Button(label='Cancel')
-        cancel_button.connect('clicked', Gtk.main_quit)
-        box.pack_end(cancel_button, False, False, 0)
-
-        return box
+    def on_response(self, dialog, response):
+        if response == Gtk.ResponseType.OK:
+            self.on_convert_clicked(self.convert_button)
+        else:
+            dialog.destroy()
 
     def on_format_changed(self, combo):
         chosen_format = combo.get_active_text()
