@@ -99,6 +99,20 @@ class ConverterWindow(Gtk.Dialog):
         output = FILE_PATH.with_suffix(target_format)
         quality = self.quality_scale.get_value()
 
+        if output.is_file():
+            dialog = Gtk.MessageDialog(
+                transient_for=self,
+                flags=0,
+                message_type=Gtk.MessageType.WARNING,
+                buttons=Gtk.ButtonsType.OK_CANCEL,
+                title='File Already Exists',
+                text=f'Do you want to replace {output.name}?')
+            response = dialog.run()
+            dialog.destroy()
+
+            if response == Gtk.ResponseType.CANCEL:
+                return
+
         subprocess.run(
             ['convert', '-quality', str(quality), FILE_PATH, str(output)],
             check=True)
