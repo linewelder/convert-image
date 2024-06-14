@@ -16,5 +16,5 @@ Exec=<convert-image@linewelder/action.py %F>
 Icon-Name=emblem-photos-symbolic
 Selection=s
 Extensions=jpeg;jpg;png;webp;heif;
-Dependencies=convert;
+Dependencies=python3;convert;
 
