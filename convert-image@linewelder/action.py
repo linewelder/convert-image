@@ -126,7 +126,7 @@ class ConverterWindow(Gtk.Dialog):
             check=True)
 
         if self.replace_check.get_active() and output != FILE_PATH:
-            FILE_PATH.unlink()
+            subprocess.run(['gio', 'trash', FILE_PATH], check=True)
 
         self.destroy()
 
