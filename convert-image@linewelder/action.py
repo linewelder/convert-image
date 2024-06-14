@@ -80,6 +80,7 @@ class ConverterWindow(Gtk.Dialog):
 
         self.quality_scale = Gtk.Scale.new_with_range(Gtk.Orientation.HORIZONTAL, 1, 100, 1)
         self.quality_scale.set_value(90)
+        self.quality_scale.set_tooltip_text('Compression level of the resulting picture')
         box.add(self.quality_scale)
 
         return box
