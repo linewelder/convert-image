@@ -1,0 +1,9 @@
+{
+    "uuid": "convert-image@linewelder",
+    "name": "Convert Image",
+    "description": "Convert the selected image to a different format",
+    "author": "linewelder",
+    "version": "1.0.0",
+    "icon": "emblem-photos"
+}
+
