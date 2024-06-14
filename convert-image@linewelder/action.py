@@ -2,7 +2,7 @@
 
 import sys
 import gi
-import os
+import subprocess
 from pathlib import Path
 
 
@@ -99,7 +99,9 @@ class ConverterWindow(Gtk.Dialog):
         output = FILE_PATH.with_suffix(target_format)
         quality = self.quality_scale.get_value()
 
-        os.system(f'convert -quality {quality} {FILE_PATH} {output}')
+        subprocess.run(
+            ['convert', '-quality', str(quality), FILE_PATH, str(output)],
+            check=True)
         self.destroy()
 
     def move_to_mouse_pointer(self):
